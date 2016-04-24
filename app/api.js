@@ -325,6 +325,7 @@ api.get('/profile/:id', ensureAuthorized, function(req, res){
 
 api.post('/profile/:id', ensureAuthorized, function(req, res){
   var rating = req.query.rating || req.body.rating;
+  rating = parseInt(rating);
   User.findOne({_id : req.params.id}, function(err, user){
     if(err){
       console.log(err);
