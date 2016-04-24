@@ -27,17 +27,17 @@ api.post('/authenticate', function(req, res) {
     var password = req.body.password || req.query.password;
     var username = req.body.username || req.query.username;
 
-    console.log(password);
     console.log(username)
+    console.log(password);
 
-    User.findOne({ "local.username": username } , function(err, user) {
+    User.findOne({ "local.username" : username } , function(err, user) {
         if (err) {
             res.json({
                 type: false,
                 data: "Error occured: " + err
             });
         } else {
-            if (user && validPassword(password)) {
+            if (user && validPassword(password, user)) {
                res.json({
                     type: true,
                     data: user,
@@ -126,7 +126,7 @@ api.get('/profile', ensureAuthorized, function(req, res) {
 
 
 api.get('/tutors', ensureAuthorized, function(req, res){
-  
+
 
 });
 
@@ -163,7 +163,8 @@ api.post('/profile', ensureAuthorized, function(req, res){
         user.local.username = username;
       }
       if (password){
-        user.local.password = password;
+        user.local.password = generateHash(password)
+        //update hash here
       }
       if (first){
         user.local.first = first;
@@ -223,7 +224,7 @@ process.on('uncaughtException', function(err) {
 function generateHash(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 }
-function validPassword(password){
+function validPassword(password, user){
   return bcrypt.compareSync(password, user.local.password)
 }
 
