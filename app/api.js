@@ -89,6 +89,7 @@ api.post('/signin', function(req, res) {
                 userModel.save(function(err, user){
                   if (err){
                     console.log(err)
+                    res.json({'Error saving user' : err})
                   }
                   user.token = jwt.sign( {_id : user._id}, jwt_secret);
                   console.log(user.token)
@@ -305,6 +306,18 @@ api.post('/profile', ensureAuthorized, function(req, res){
       })
     }
 
+  })
+})
+
+api.get('/profile/:id', ensureAuthorized, function(req, res){
+  User.findOne({_id : req.params.id}, function(err, user){
+    if (err){
+      console.log(err)
+      res.json({data : "Error " + err})
+    }
+    else {
+      res.json({data : user})
+    }
   })
 })
 

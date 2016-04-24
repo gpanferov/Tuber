@@ -1,5 +1,7 @@
 
 var LocalStrategy = require('passport-local').Strategy;
+var jwt_secret = require('../config/auth.js').jwt_secret
+var jwt = require('jsonwebtoken');
 var User = require('../app/models/user');
 
 // expose this function to our app using module.exports
@@ -7,7 +9,7 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user._id);
     });
 
     // used to deserialize the user
@@ -16,12 +18,6 @@ module.exports = function(passport) {
             done(err, user);
         });
     });
-
-    // =========================================================================
-    // LOCAL SIGNUP ============================================================
-    // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
 
     passport.use('local-signup', new LocalStrategy({
         // by default, local strategy uses username and password, we will override with email
@@ -54,12 +50,25 @@ module.exports = function(passport) {
                 // set the user's local credentials
                 newUser.local.email    = email;
                 newUser.local.password = newUser.generateHash(password);
+                newUser.local.username = req.body.username
 
                 // save the user
-                newUser.save(function(err) {
-                    if (err)
-                        throw err;
-                    return done(null, newUser);
+                newUser.save(function(err, user) {
+                    if (err){
+                        console.log(err);
+                    }
+                    else {
+                      user.token = jwt.sign( {_id : user._id}, jwt_secret);
+                      user.save(function(err, user1){
+                        if (err){
+                          console.log(err)
+                        }
+                        else {
+                          return done(null, newUser);
+                        }
+                      })
+                    }
+
                 });
             }
 
@@ -71,7 +80,7 @@ module.exports = function(passport) {
 
     passport.use('local-login', new LocalStrategy({
            // by default, local strategy uses username and password, we will override with email
-           usernameField : 'email',
+           usernameField : 'username',
            passwordField : 'password',
            passReqToCallback : true // allows us to pass back the entire request to the callback
        },
@@ -79,7 +88,8 @@ module.exports = function(passport) {
 
            // find a user whose email is the same as the forms email
            // we are checking to see if the user trying to login already exists
-           User.findOne({ 'local.email' :  email }, function(err, user) {
+           console.log("WE IN NIGGA")
+           User.findOne({ 'local.username' :  email }, function(err, user) {
                // if there are any errors, return the error before anything else
                if (err)
                    return done(err);

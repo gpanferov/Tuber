@@ -25,7 +25,8 @@ var userSchema = mongoose.Schema({
     ratings  : [ Number ],
     avgRating : Number,
     isTutor : { type : Boolean, default : false },
-    isAdmin : { type : Boolean, default : false }
+    isAdmin : { type : Boolean, default : false },
+    bio : { type : String }
 });
 // methods ======================
 // generating a hash

@@ -1,12 +1,23 @@
 // app/routes.js
-var api= require('./api.js')
+var api = require('./api.js');
+var User = require('./models/user.js')
 
 module.exports = function(app, passport) {
 
     // landing page
     app.get('/', function(req, res) {
       if (isAuthenticated(req)){
-        res.render('tuber.ejs')
+
+        User.find({ "isTutor" : true}, function(err, users){
+          if (err){
+            console.log('No tutors available')
+            res.render('tuber.ejs', {user : req.user, tutors : null})
+          }
+          else {
+            res.render('tuber.ejs', {user : req.user , tutors : users })
+          }
+        })
+
       }
       else {
         res.render('index.ejs'); // load the index.ejs file
@@ -19,13 +30,13 @@ module.exports = function(app, passport) {
     });
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {
-         successRedirect : '/profile', // redirect to the secure profile section
+         successRedirect : '/', // redirect to the secure profile section
          failureRedirect : '/', // redirect back to the signup page if there is an error
          failureFlash : true // allow flash messages
     }));
 
     app.post('/login', passport.authenticate('local-login', {
-       successRedirect : '/profile', // redirect to the secure profile section
+       successRedirect : '/', // redirect to the secure profile section
        failureRedirect : '/', // redirect back to the signup page if there is an error
        failureFlash : true // allow flash messages
    }));
