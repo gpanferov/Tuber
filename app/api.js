@@ -20,9 +20,7 @@ api.use(function(req, res, next) {
 });
 
 api.get('/', function(req, res){
-  res.json({
-    'Welcome' : 'To our api bby'
-  })
+  res.render('api.ejs', {user : req.user})
 })
 
 api.post('/authenticate', function(req, res) {
@@ -310,7 +308,7 @@ api.post('/profile', ensureAuthorized, function(req, res){
 })
 
 api.get('/profile/:id', ensureAuthorized, function(req, res){
-  User.findOne({_id : req.params.id}, function(err, user){
+  User.findOne({ _id : req.params.id}, function(err, user){
     if (err){
       console.log(err)
       res.json({data : "Error " + err})

@@ -16,6 +16,7 @@
   <nav class=""  style="background-color: #0058FF" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Tuber</a>
       <ul class="right hide-on-med-and-down">
+        <% if (user) { %>
         <li><a class='dropdown-button' href='#' data-activates='dropdown1'><%= user.local.email %></a></li>
 
                   <!-- Dropdown Structure -->
@@ -23,6 +24,7 @@
             <li><a  class=" blue white-text" href="/profile">Profile</a></li>
             <li><a class="red white-text" href="/logout">Logout</a></li>
           </ul>
+        <% } %>
 
         <li><a href="/api">API</a></li>
       </ul>
@@ -34,50 +36,15 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-
-
-<br><br><br><br>
-
-<div class="container">
-  <div class="row">
-      <form class="col s12">
-        <div class="row">
-          <div class="input-field col s6">
-            <input value='<%= user.local.first %>' id="first_name" type="text" class="validate">
-            <label for="first_name">First Name</label>
-          </div>
-          <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate">
-            <label for="last_name">Last Name</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-            <label for="disabled">Disabled</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="password" type="password" class="validate">
-            <label for="password">Password</label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="email" type="email" class="validate">
-            <label for="email">Email</label>
-          </div>
-        </div>
-      </form>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text"><img src="images/tuber.png" alt="" /></h1>
+      <div class="row center">
+        <h5 class="header col s12 bold white-text">Uber, but for tutors</h5>
+      </div>
     </div>
-
-</div>
-
-
-
-
-
+  </div>
 
 
 

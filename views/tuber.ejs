@@ -16,7 +16,7 @@
 
   <header>
     <nav class=""  style="background-color: #0058FF" role="navigation">
-      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Tuber</a>
+      <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Tuber</a>
         <ul class="right hide-on-med-and-down">
           <li><a class='dropdown-button' href='#' data-activates='dropdown1'><%= user.local.email %></a></li>
 
@@ -25,7 +25,6 @@
               <li><a  class=" blue white-text" href="/profile">Profile</a></li>
               <li><a class="red white-text" href="/logout">Logout</a></li>
             </ul>
-
 
           <li><a href="/api">API</a></li>
         </ul>
@@ -50,6 +49,10 @@
                <div class="card-content white-text">
                  <span class="card-title"><%= tutors[i].local.first + " " + tutors[i].local.last %></span>
                  <p><%= tutors[i].bio %></p>
+                 <br>
+                 <% for(var j = 0; j < tutors[i].classes.length; j++){%>
+                   <div class="chip"><%= tutors[i].classes[j] %></div>
+                  <% } %>
                </div>
                <div class="card-action">
                  <a href="#">Avg Rating: <span class="math"> <%= tutors[i].avgRating %> </span></a>
@@ -61,7 +64,6 @@
 </div>
 
 </main>
-
 
 <script type="text/javascript">
 $('.phone').text(function(i, text) {
