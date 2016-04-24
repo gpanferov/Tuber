@@ -1,8 +1,9 @@
-var express = require('express')
+var express = require('express');
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcrypt-nodejs');
+
 var User = require('./models/user.js');
 var Class = require('./models/class.js');
-var jwt = require('jsonwebtoken')
-
 
 var api = express.Router()
 var jwt_secret = require('../config/auth.js').jwt_secret
@@ -22,17 +23,21 @@ api.get('/', function(req, res){
 })
 
 api.post('/authenticate', function(req, res) {
-    var password = req.body.email || req.query.passowrd;
-    var email = req.body.username || req.query.username;
 
-    User.findOne({username: email, password: password}, function(err, user) {
+    var password = req.body.password || req.query.password;
+    var username = req.body.username || req.query.username;
+
+    console.log(password);
+    console.log(username)
+
+    User.findOne({ "local.username": username } , function(err, user) {
         if (err) {
             res.json({
                 type: false,
                 data: "Error occured: " + err
             });
         } else {
-            if (user) {
+            if (user && validPassword(password)) {
                res.json({
                     type: true,
                     data: user,
@@ -41,7 +46,7 @@ api.post('/authenticate', function(req, res) {
             } else {
                 res.json({
                     type: false,
-                    data: "Incorrect email/password"
+                    data: "Incorrect username/password"
                 });
             }
         }
@@ -50,47 +55,61 @@ api.post('/authenticate', function(req, res) {
 
 api.post('/signin', function(req, res) {
 
-    var email = req.body.email || req.query.email;
     var password = req.body.password || req.query.password;
+    var username = req.body.username || req.query.username;
 
-    User.findOne({email: email, password: password}, function(err, user) {
+    User.findOne({"local.username" : username }, function(err, user) {
         if (err) {
             res.json({
                 type: false,
                 data: "Error occured: " + err
             });
-        } else {
+        }
+        else {
             if (user) {
                 res.json({
                     type: false,
                     data: "User already exists!"
                 });
-            } else {
+            }
+            else {
                 var userModel = new User();
                 userModel.local.email = req.body.email ||  req.query.email;
-                userModel.local.password = req.body.password || req.query.password;
+                userModel.local.password = generateHash(password)
+                userModel.local.username = req.body.username || req.query.username;
                 userModel.local.first = req.body.first || req.query.first;
                 userModel.local.last = req.body.last || req.query.last;
                 userModel.local.birthday = req.body.birthday || req.query.birthday;
 
 
-                userModel.save(function(err, user) {
-                    user.token = jwt.sign(user, jwt_secret);
-                    user.save(function(err, user1) {
-                        res.json({
-                            type: true,
-                            data: user1,
-                            token: user1.token
-                        });
-                    });
+                userModel.save(function(err, user){
+                  if (err){
+                    console.log(err)
+                  }
+                  user.token = jwt.sign( {_id : user._id}, jwt_secret);
+                  console.log(user.token)
+                  user.save(function(err, user1){
+                    if (err){
+                      console.log(err)
+                    }
+                    res.json({
+                      type  : true,
+                      data  : user1,
+                      token : user1.token
+                    })
+                  })
                 })
+
             }
         }
     });
 });
 
 api.get('/profile', ensureAuthorized, function(req, res) {
-    User.findOne({token: req.headers['X-Requested-With']}, function(err, user) {
+
+  console.log(req.headers)
+
+    User.findOne({token: req.headers['authorization']}, function(err, user) {
         if (err) {
             res.json({
                 type: false,
@@ -106,11 +125,82 @@ api.get('/profile', ensureAuthorized, function(req, res) {
 });
 
 
-api.get('/logout', ensureAuthorized, function(req, res){
-  req.headers['authorization'] = null;
-  res.json({Message : 'Successfully logged out!'})
+api.get('/tutors', ensureAuthorized, function(req, res){
+  
+
+});
+
+api.get('/classes', ensureAuthorized, function(req, res){
+
 })
 
+
+api.post('/profile', ensureAuthorized, function(req, res){
+
+  var email = null || req.query.email || req.body.email;
+  var username = null || req.query.username || req.body.username;
+  var password = null || req.query.password || req.body.password;
+  var first = null || req.query.first || req.body.first;
+  var last = null || req.query.last || req.body.last;
+  var phone = null || req.query.phone || req.body.phone;
+  var birthday = null || req.query.birthday || req.body.birthday;
+  var classes = null || req.query.classes || req.body.classes
+  var rating = null || req.query.rating || req.body.rating
+
+  User.findOne({token : req.headers['authorization']}, function(err, user){
+    if (err){
+      console.log(err)
+      res.json({
+        type : false,
+        data : "Error occured " + err
+      })
+    }
+    else {
+      if (email){
+        user.local.email = email;
+      }
+      if (username){
+        user.local.username = username;
+      }
+      if (password){
+        user.local.password = password;
+      }
+      if (first){
+        user.local.first = first;
+      }
+      if (last){
+        user.local.last = last;
+      }
+      if (phone){
+        user.local.phone = phone;
+      }
+      if (birthday){
+        user.local.birthday = birthday
+      }
+      if(classes){
+        user.classes = user.classes.push(classes)
+      }
+      if (rating){
+        user.rating = user.rating.push(rating)
+      }
+
+      user.save(function(err, user){
+        if (err){
+          console.log(err)
+          res.json({
+            data : 'Error occured ' + err
+          })
+        }
+        else {
+          res.json({
+            message : 'successfully updated user'
+          })
+        }
+      })
+    }
+
+  })
+})
 
 
 function ensureAuthorized(req, res, next) {
@@ -129,6 +219,13 @@ function ensureAuthorized(req, res, next) {
 process.on('uncaughtException', function(err) {
     console.log(err);
 });
+
+function generateHash(password){
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+}
+function validPassword(password){
+  return bcrypt.compareSync(password, user.local.password)
+}
 
 
 module.exports = api;
