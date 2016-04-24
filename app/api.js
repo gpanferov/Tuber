@@ -25,8 +25,11 @@ api.get('/', function(req, res){
 
 api.post('/authenticate', function(req, res) {
 
+    console.log(req.headers)l
     var password = req.body.password || req.query.password;
     var username = req.body.username || req.query.username;
+
+
 
     console.log(username)
     console.log(password);
@@ -110,7 +113,7 @@ api.post('/signin', function(req, res) {
 
 api.get('/profile', ensureAuthorized, function(req, res) {
 
-  console.log(req.headers)
+  //console.log(req.headers)
 
     User.findOne({token: req.headers['authorization']}, function(err, user) {
         if (err) {

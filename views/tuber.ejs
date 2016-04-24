@@ -11,6 +11,8 @@
   <script src="Materialize/bin/materialize.js" charset="utf-8"></script>
   <!--Google icons because fuck you--->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+   <link rel="stylesheet" href="rateYo/src/jquery.rateyo.css"/>
 </head>
 <body>
 
@@ -55,8 +57,22 @@
                   <% } %>
                </div>
                <div class="card-action">
+                 <a href="#"><div id="rateYo<%= i.toString() %>"  ></div></a>
+                 <br><br>
                  <a href="#">Avg Rating: <span class="math"> <%= tutors[i].avgRating %> </span></a>
                  <a href="#">Phone Number: <span class="phone"><%= tutors[i].local.phone %></span></a>
+
+                 <script type="text/javascript">
+                 $(function () {
+
+                    $("#rateYo<%= i.toString() %>" ).rateYo({
+                      rating: <%= tutors[i].avgRating  %>
+                    });
+
+                    });
+                 </script>
+
+
                </div>
              </div>
     </div>
@@ -73,6 +89,7 @@ $('.math').text(function(i, text){
 
 })
 </script>
+<script src="rateYo/src/jquery.rateyo.js" charset="utf-8"></script>
 
 
 
