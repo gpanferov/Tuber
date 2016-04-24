@@ -308,6 +308,7 @@ api.post('/profile', ensureAuthorized, function(req, res){
 })
 
 api.get('/profile/:id', ensureAuthorized, function(req, res){
+  console.log(req.params)
   User.findOne({ _id : req.params.id}, function(err, user){
     if (err){
       console.log(err)
@@ -315,6 +316,30 @@ api.get('/profile/:id', ensureAuthorized, function(req, res){
     }
     else {
       res.json({data : user})
+    }
+  })
+})
+
+api.post('/profile/:id', ensureAuthorized, function(req, res){
+  var rating = req.query.rating || req.body.rating;
+  User.findOne({_id : req.params.id}, function(err, user){
+    if(err){
+      console.log(err);
+      res.json({'data' : err})
+    }
+    else {
+      user.ratings.push(rating);
+      user.avgRating = computeAverage(user.ratings);
+      user.save(function(err, user){
+        if (err){
+          console.log(err)
+          res.json({'data' : "There was an error saving the user"})
+        }
+        else {
+          res.json({'data' : 'successfully saved ratingt'})
+        }
+      })
+
     }
   })
 })

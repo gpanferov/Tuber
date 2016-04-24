@@ -11,6 +11,8 @@
   <script src="Materialize/bin/materialize.js" charset="utf-8"></script>
   <!--Google icons because fuck you--->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/prism.css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
   <nav class=""  style="background-color: #0058FF" role="navigation">
@@ -36,14 +38,126 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-  <div class="section no-pad-bot" id="index-banner">
-    <div class="container">
-      <br><br>
-      <h1 class="header center orange-text"><img src="images/tuber.png" alt="" /></h1>
-      <div class="row center">
-        <h5 class="header col s12 bold white-text">Uber, but for tutors</h5>
-      </div>
-    </div>
+
+
+  <div class="container">
+    <h3>Tuber API</h3>
+    <hr>
+    <h5><b>GET</b></h5>
+    <pre><code class="http"> http://tuber.tech/api </code></pre>
+    <p style="text-indent: 50px;">
+      <b>This returns the Tuber API documentation</b>
+    </p>
+
+    <hr>
+    <h5><b>POST</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/signin </code></pre>
+    <ul style="text-indent: 50px;">
+      <li><b>Authenticates a new user and logs them in automatically</b></li>
+      <br>
+      <li><code class="http">?firstname=[FIRST_NAME]</code></li>
+      <li><code class="http">?lastname=[LAST_NAME]</code></li>
+      <li><code class="http">?username=[USERNAME]</code></li>
+      <li><code class="http">?password=[PASSWORD]</code></li>
+      <li><code class="http">?email=[EMAIL]</code></li>
+      <li><code class="http">?phone=[PHONE]</code></li>
+      <li><code class="http">?birthday=[BIRTHDAY]</code></li>
+    </ul>
+
+    <hr>
+    <h5><b>POST</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/authenticate </code></pre>
+    <ul style="text-indent: 50px;">
+      <li><b>Authenticates an existing user</b></li>
+      <br>
+      <li><code class="http">?username=[USERNAME]</code></li>
+      <li><code class="http">?password=[PASSWORD]</code></li>
+    </ul>
+
+
+    <hr>
+    <h5><b>GET</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/profile </code></pre>
+    <ul style="text-indent: 50px;">
+      <li><b>Returns the currently logged in user</b></li>
+    </ul>
+
+    <hr>
+    <h5><b>GET</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/profile/:id </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Returns just one user</b></li>
+      <br>
+    </ul>
+
+    <hr>
+    <h5><b>POST</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/profile </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Allows the user to update their profile</b></li>
+      <br>
+      <li><code class="http">?lastname=[LAST_NAME]</code></li>
+      <li><code class="http">?username=[USERNAME]</code></li>
+      <li><code class="http">?password=[PASSWORD]</code></li>
+      <li><code class="http">?email=[EMAIL]</code></li>
+      <li><code class="http">?phone=[PHONE]</code></li>
+      <li><code class="http">?birthday=[BIRTHDAY]</code></li>
+    </ul>
+
+    <hr>
+    <h5><b>GET</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/tutors </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Returns all tutors. To be sorted by the API consumer</b></li>
+      <br>
+    </ul>
+
+    <hr>
+    <h5><b>GET</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/classes </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Returns classes based on a search query</b></li>
+      <br>
+      <li>?title=[TITLE]</li>
+      <li>?category=[CATEGORY]</li>
+      <li>?title=[TITLE]&category=[CATEGORY]</li>
+    </ul>
+
+    <hr>
+    <h5><b>POST</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/classes </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Creates a new class for users to tutor/be tutored in</b></li>
+      <br>
+      <li>?title=[TITLE]</li>
+      <li>?category=[CATEGORY]</li>
+    </ul>
+
+    <hr>
+    <h5><b>POST</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/classes/:id </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Updates one class</b></li>
+      <br>
+      <li>?title=[TITLE]</li>
+      <li>?category=[CATEGORY]</li>
+    </ul>
+
+    <hr>
+    <h5><b>DELETE</b></h5>
+    <pre><code class="http"> http://tuber.tech/api/classes/:id </code></pre>
+    <ul style="text-indent: 50px;">
+      <li> <b>Deletes a class</b></li>
+      <br>
+    </ul>
+
+
+    <br><br><br><br><br><br>
+
+
+
+
+
   </div>
 
 
@@ -54,3 +168,4 @@
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
   </script>
+  <script src="js/prism.js" charset="utf-8"></script>
