@@ -8,6 +8,10 @@ var Class = require('./models/class.js');
 var api = express.Router()
 var jwt_secret = require('../config/auth.js').jwt_secret
 
+process.on('uncaughtException', function(err) {
+    console.log(err);
+});
+
 
 api.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -80,6 +84,7 @@ api.post('/signin', function(req, res) {
                 userModel.local.first = req.body.first || req.query.first;
                 userModel.local.last = req.body.last || req.query.last;
                 userModel.local.birthday = req.body.birthday || req.query.birthday;
+                userModel.local.phone = req.body.phone || req.query.phone;
 
 
                 userModel.save(function(err, user){
@@ -127,13 +132,82 @@ api.get('/profile', ensureAuthorized, function(req, res) {
 
 api.get('/tutors', ensureAuthorized, function(req, res){
 
-
+  User.find({ isTutor : true }, function(err, users){
+    if(err){
+      console.log(err)
+      res.json({
+        data : 'Error ' + err
+      })
+    }
+    else {
+      res.json({ users })
+    }
+  })
 });
 
 api.get('/classes', ensureAuthorized, function(req, res){
 
+  var title = req.body.title || req.query.title;
+  var category = req.body.title || req.query.title;
+
+  if (title){
+    Class.find({title : title}, function(err, classes){
+      if (err){
+        console.log(err)
+        res.json({ data : 'Error ' + err })
+      }
+      else {
+        res.json({ classes })
+      }
+    })
+  }
+  else if (category){
+    Class.find({ category : category }, function(err, classes){
+      if (err){
+        console.log(err)
+        res.json({ data : 'Error ' + err })
+      }
+      else {
+        res.json({ classes })
+      }
+    })
+  }
+  else if (title && category){
+    Class.find({title : title, category : category}, function(err, classes){
+      if (err){
+        console.log(err)
+        res.json({ data : 'Error ' + err })
+      }
+      else {
+        res.json({ classes })
+      }
+    })
+  }
+  else {
+    Class.find({}, function(err, classes){
+      if (err){
+        console.log(err)
+        res.json({ data : 'Error ' + err })
+      }
+      else {
+        res.json({ classes })
+      }
+    })
+  }
 })
 
+
+api.post('/classes', function(req, res){
+  if (!userIsAdmin(req)){
+    res.json({data : "You are not authenticated to access this page"})
+  }
+})
+
+api.post('/classes/:id', function(req, res){
+  if (!userIsAdmin(req)){
+    res.json({data : "You are not authenticated to access this page"})
+  }
+})
 
 api.post('/profile', ensureAuthorized, function(req, res){
 
@@ -144,8 +218,8 @@ api.post('/profile', ensureAuthorized, function(req, res){
   var last = null || req.query.last || req.body.last;
   var phone = null || req.query.phone || req.body.phone;
   var birthday = null || req.query.birthday || req.body.birthday;
-  var classes = null || req.query.classes || req.body.classes
-  var rating = null || req.query.rating || req.body.rating
+  var classes = null || req.query.classes || req.body.classes;
+  var rating = null || req.query.rating || req.body.rating;
 
   User.findOne({token : req.headers['authorization']}, function(err, user){
     if (err){
@@ -157,32 +231,35 @@ api.post('/profile', ensureAuthorized, function(req, res){
     }
     else {
       if (email){
-        user.local.email = email;
+        user.local.email = email.toString()
       }
       if (username){
-        user.local.username = username;
+        user.local.username = username.toString()
       }
       if (password){
         user.local.password = generateHash(password)
         //update hash here
       }
       if (first){
-        user.local.first = first;
+        user.local.first = first.toString()
       }
       if (last){
-        user.local.last = last;
+        user.local.last = last.toString()
       }
       if (phone){
-        user.local.phone = phone;
+        user.local.phone = phone.toString()
       }
       if (birthday){
-        user.local.birthday = birthday
+        user.local.birthday = birthday.toString()
       }
       if(classes){
-        user.classes = user.classes.push(classes)
+        console.log("The classes are ", classes)
+        user.classes.push(classes.toString())
+        user.isTutor = true
       }
       if (rating){
-        user.rating = user.rating.push(rating)
+        user.ratings.push(rating);
+        user.avgRating = computeAverage(user.ratings);
       }
 
       user.save(function(err, user){
@@ -217,16 +294,37 @@ function ensureAuthorized(req, res, next) {
     }
 }
 
-process.on('uncaughtException', function(err) {
-    console.log(err);
-});
 
 function generateHash(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 }
+
+
 function validPassword(password, user){
   return bcrypt.compareSync(password, user.local.password)
 }
 
+function computeAverage(numbers){
+  var num = 0;
+  for (var i = 0; i < numbers.length; i++){
+    num += numbers[i]
+  }
+  return (num/numbers.length)
+}
+
+function userIsAdmin(req){
+  User.findOne({ token : req.headers['authorization']}, function(err, user){
+    if (err){
+      console.log(err)
+      res.json({data : "Error " + err})
+    }
+    else {
+      if (user.isAdmin){
+        return true
+      }
+      return false
+    }
+  })
+}
 
 module.exports = api;
