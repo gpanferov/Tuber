@@ -25,7 +25,7 @@ api.get('/', function(req, res){
 
 api.post('/authenticate', function(req, res) {
 
-    console.log(req.headers)l
+    console.log(req.headers);
     var password = req.body.password || req.query.password;
     var username = req.body.username || req.query.username;
 
