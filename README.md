@@ -42,9 +42,9 @@ A few things that were a bit hard to implement:
 - Getting the layouts right
 
 ###Android
-
-
-
+We were successful in creating a user friendly UI for the Android. A few things we had a hard time with when working with Android:
+- Converting the Json file to the objects we needed.
+- Making the dynamic scrolling list was tough because of the limitations of code we knew, so we had to learn a lot of code to be able implement that
 
 ###Web
 We created and consumed our own api. For the web development we used
@@ -56,4 +56,3 @@ We created and consumed our own api. For the web development we used
 - bcrypt for hashing passwords
 
 On the web app you are only able to sign in, sign up, view profile, edit profile, view tutors and log out. 
-
