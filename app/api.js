@@ -12,7 +12,6 @@ process.on('uncaughtException', function(err) {
     console.log(err);
 });
 
-
 api.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
@@ -201,9 +200,38 @@ api.post('/classes', function(req, res){
   if (!userIsAdmin(req)){
     res.json({data : "You are not authenticated to access this page"})
   }
+  else {
+    var title = req.body.title || req.query.title;
+    var category = req.body.title || req.query.title;
+
+    if (title && category){
+      var newClass = Class.new();
+      newClass.title = title;
+      newClass.category = category;
+      newClass.save(function(err, classs){
+        if (err){
+          console.log(err)
+          res.json({ data : "Error " + err })
+        }
+        else {
+          res.json({data : "successfully created class!"})
+        }
+      })
+    }
+    else {
+      res.json({data : "Error, not enough data to create class"})
+    }
+  }
 })
 
 api.post('/classes/:id', function(req, res){
+  if (!userIsAdmin(req)){
+    res.json({data : "You are not authenticated to access this page"})
+  }
+
+})
+
+api.delete('/classes/:id', function(req, res){
   if (!userIsAdmin(req)){
     res.json({data : "You are not authenticated to access this page"})
   }
@@ -280,7 +308,6 @@ api.post('/profile', ensureAuthorized, function(req, res){
   })
 })
 
-
 function ensureAuthorized(req, res, next) {
     var bearerToken;
     var bearerHeader = req.headers["authorization"];
@@ -293,7 +320,6 @@ function ensureAuthorized(req, res, next) {
         res.sendStatus(403);
     }
 }
-
 
 function generateHash(password){
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
