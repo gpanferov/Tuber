@@ -1,29 +1,25 @@
-var facebook_client_id = process.env.FB_ID;
-var facebook_client_secret = process.env.FB_SECRET;
-var facebook_callback_url = process.env.FB_CALLBACK_URL;
+var facebook_client_id = '1677423189189016';
+var facebook_client_secret = '9e9e60395b6d7ac9ad5e7847faa214bd';
+var facebook_callback_url = 'http://localhost:3000/auth/facebook/callback';
 
 module.exports = {
   jwt_secret : 'tubersecret',
 
-  auth : {
+  'facebookAuth' : {
+      'clientID'      : facebook_client_id , // your App ID
+      'clientSecret'  : facebook_client_secret, // your App Secret
+      'callbackURL'   : facebook_callback_url
+  },
 
-    'facebookAuth' : {
-        'clientID'      : facebook_client_id , // your App ID
-        'clientSecret'  : facebook_client_secret, // your App Secret
-        'callbackURL'   : facebook_callback_url
-    },
+  'twitterAuth' : {
+      'consumerKey'       : 'your-consumer-key-here',
+      'consumerSecret'    : 'your-client-secret-here',
+      'callbackURL'       : 'http://localhost:8080/auth/twitter/callback'
+  },
 
-    'twitterAuth' : {
-        'consumerKey'       : 'your-consumer-key-here',
-        'consumerSecret'    : 'your-client-secret-here',
-        'callbackURL'       : 'http://localhost:8080/auth/twitter/callback'
-    },
-
-    'googleAuth' : {
-        'clientID'      : 'your-secret-clientID-here',
-        'clientSecret'  : 'your-client-secret-here',
-        'callbackURL'   : 'http://localhost:8080/auth/google/callback'
-    }
-
+  'googleAuth' : {
+      'clientID'      : 'your-secret-clientID-here',
+      'clientSecret'  : 'your-client-secret-here',
+      'callbackURL'   : 'http://localhost:8080/auth/google/callback'
   }
 }

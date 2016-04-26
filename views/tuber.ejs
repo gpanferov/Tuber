@@ -1,96 +1,96 @@
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Tuber</title>
-  <!-- CSS  -->
-  <!--This is used for mother fucking jquery bitches-->
-  <script src="jquery/dist/jquery.js" charset="utf-8"></script>
-  <!--This is used for mother fucking material design from google bitches--->
-  <link rel="stylesheet" href="Materialize/bin/materialize.css" media="screen" title="no title" charset="utf-8">
-  <!-- The templar knights when they took jerusalem niggah-->
-  <script src="Materialize/bin/materialize.js" charset="utf-8"></script>
-  <!--Google icons because fuck you--->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>Tuber</title><!-- CSS  -->
+    <!--This is used for mother fucking jquery bitches-->
 
-   <link rel="stylesheet" href="rateYo/src/jquery.rateyo.css"/>
+    <script charset="utf-8" src="jquery/dist/jquery.js">
+    </script><!--This is used for mother fucking material design from google bitches=-->
+    <link charset="utf-8" href="Materialize/bin/materialize.css" media="screen" rel="stylesheet" title="no title">
+    <!-- The templar knights when they took jerusalem niggah-->
+
+    <script charset="utf-8" src="Materialize/bin/materialize.js">
+    </script><!--Google icons because fuck you=-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="rateYo/src/jquery.rateyo.css" rel="stylesheet">
 </head>
 <body>
+    <header>
+        <nav class="" role="navigation" style="background-color: #0058FF">
+            <div class="nav-wrapper container">
+                <a class="brand-logo" href="/" id="logo-container">Tuber</a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a class='dropdown-button' data-activates='dropdown1' href='#'><%= user.local.email %></a>
+                    </li><!-- Dropdown Structure -->
+                    <li style="list-style: none; display: inline">
+                        <ul class='dropdown-content' id='dropdown1' style="margin-top: 65px;">
+                            <li>
+                                <a class=" blue white-text" href="/profile">Profile</a>
+                            </li>
+                            <li>
+                                <a class="red white-text" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/api">API</a>
+                    </li>
+                </ul>
+                <ul class="side-nav" id="nav-mobile">
+                    <li style="list-style: none"><br></li>
+                    <li class="center">
+                        <a href="/api">API</a>
+                    </li>
+                </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class=
+                "material-icons">menu</i></a>
+            </div>
+        </nav>
+    </header><br>
+    <br>
+    <main>
+        <div class="container">
+            <%for (var i = 0; i < tutors.length ; i++) { %>
+            <div class="row">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title"><%= tutors[i].local.first + " " + tutors[i].local.last %></span>
+                        <p><%= tutors[i].bio %></p><br>
+                        <%for(var j = 0; j < tutors[i].classes.length; j++){%>
+                        <div class="chip">
+                            <%= tutors[i].classes[j] %>
+                        </div><%} %>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">
+                        <div id="rateYo&lt;%= i.toString() %&gt;"></div></a><br>
+                        <br>
+                        <a href="#">Avg Rating: <span class="math"><%= tutors[i].avgRating %></span></a> <a href=
+                        "#">Phone Number: <span class="phone"><%= tutors[i].local.phone %></span></a>
+                        <script type="text/javascript">
+                        $(function () {
+                        $("#rateYo<%= i.toString() %>" ).rateYo({
+                        rating: <%= tutors[i].avgRating  %>
+                        });
 
-  <header>
-    <nav class=""  style="background-color: #0058FF" role="navigation">
-      <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Tuber</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a class='dropdown-button' href='#' data-activates='dropdown1'><%= user.local.email %></a></li>
+                        });
+                        </script>
+                    </div>
+                </div>
+            </div><%} %>
+        </div>
+    </main>
+    <script type="text/javascript">
+    $('.phone').text(function(i, text) {
+    return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    });
+    $('.math').text(function(i, text){
 
-                    <!-- Dropdown Structure -->
-            <ul id='dropdown1' class='dropdown-content' style="margin-top: 65px;">
-              <li><a  class=" blue white-text" href="/profile">Profile</a></li>
-              <li><a class="red white-text" href="/logout">Logout</a></li>
-            </ul>
-
-          <li><a href="/api">API</a></li>
-        </ul>
-
-        <ul id="nav-mobile" class="side-nav">
-          <br>
-          <li class="center"><a href="/api">API</a></li>
-        </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-      </div>
-    </nav>
-  </header>
-<br><br>
-
-<main>
-
-<div class="container">
-    <% for (var i = 0; i < tutors.length ; i++) { %>
-      <div class="row">
-      <div class="card blue-grey darken-1">
-               <div class="card-content white-text">
-                 <span class="card-title"><%= tutors[i].local.first + " " + tutors[i].local.last %></span>
-                 <p><%= tutors[i].bio %></p>
-                 <br>
-                 <% for(var j = 0; j < tutors[i].classes.length; j++){%>
-                   <div class="chip"><%= tutors[i].classes[j] %></div>
-                  <% } %>
-               </div>
-               <div class="card-action">
-                 <a href="#"><div id="rateYo<%= i.toString() %>"  ></div></a>
-                 <br><br>
-                 <a href="#">Avg Rating: <span class="math"> <%= tutors[i].avgRating %> </span></a>
-                 <a href="#">Phone Number: <span class="phone"><%= tutors[i].local.phone %></span></a>
-
-                 <script type="text/javascript">
-                 $(function () {
-                    $("#rateYo<%= i.toString() %>" ).rateYo({
-                      rating: <%= tutors[i].avgRating  %>
-                    });
-
-                    });
-                 </script>
-               </div>
-             </div>
-    </div>
-  <% } %>
-</div>
-
-</main>
-
-<script type="text/javascript">
-$('.phone').text(function(i, text) {
-  return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-});
-$('.math').text(function(i, text){
-
-})
-</script>
-<script src="rateYo/src/jquery.rateyo.js" charset="utf-8"></script>
-
-
-
-
-
-
-
-  </body>
+    })
+    </script>
+    <script charset="utf-8" src="rateYo/src/jquery.rateyo.js">
+    </script>
+</body>
+</html>
