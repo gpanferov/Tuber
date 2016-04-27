@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1.0" name="viewport">
+    <title>Tuber</title><!-- CSS  -->
+    <!--This is used for mother fucking jquery bitches-->
+
+    <script charset="utf-8" src="jquery/dist/jquery.js">
+    </script><!--This is used for mother fucking material design from google bitches=-->
+    <link charset="utf-8" href="Materialize/bin/materialize.css" media="screen" rel="stylesheet" title="no title">
+    <!-- The templar knights when they took jerusalem niggah-->
+
+    <script charset="utf-8" src="Materialize/bin/materialize.js">
+    </script><!--Google icons because fuck you=-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="rateYo/src/jquery.rateyo.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="" role="navigation" style="background-color: #0058FF">
+            <div class="nav-wrapper container">
+                <a class="brand-logo" href="/" id="logo-container">Tuber</a>
+                <ul class="right hide-on-med-and-down">
+                    <li>
+                        <a class='dropdown-button' data-activates='dropdown1' href='#'><%= user.local.email || user.facebook.email %></a>
+                    </li><!-- Dropdown Structure -->
+                    <li style="list-style: none; display: inline">
+                        <ul class='dropdown-content' id='dropdown1' style="margin-top: 65px;">
+                            <li>
+                                <a class=" blue white-text" href="/profile">Profile</a>
+                            </li>
+                            <li>
+                                <a class="red white-text" href="/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/api">API</a>
+                    </li>
+                </ul>
+                <ul class="side-nav" id="nav-mobile">
+                    <li style="list-style: none"><br></li>
+                    <li class="center">
+                        <a href="/api">API</a>
+                    </li>
+                </ul><a class="button-collapse" data-activates="nav-mobile" href="#"><i class=
+                "material-icons">menu</i></a>
+            </div>
+        </nav>
+    </header><br>
+    <br>
+    <main>
+        <div class="container">
+
+
+        </div>
+    </main>
+</body>
+</html>

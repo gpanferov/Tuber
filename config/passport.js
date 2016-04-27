@@ -116,7 +116,7 @@ module.exports = function(passport) {
                 User.findOne({
                     'facebook.id': profile.id
                 }, function(err, user) {
-                  
+
                     // if there is an error, stop everything and return that
                     // ie an error connecting to the database
                     if (err)
