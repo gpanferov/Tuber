@@ -19,6 +19,7 @@
     "Materialize": "materialize#^0.97.6",
     "jquery": "^2.2.3",
     "rateYo": "jquery-rateyo#^2.1.0",
-    "css-modal": "^1.4.1"
+    "css-modal": "^1.4.1",
+    "animate.css": "^3.5.1"
   }
 }
