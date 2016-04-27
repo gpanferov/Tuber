@@ -33,7 +33,7 @@
           <h5 class="header col s12 light"><b>Uber, but for tutors</b></h5>
         </div>
         <div class="row center">
-          <a href="#" id="download-button" class="btn-large waves-effect waves-light" style="background-color: #0058FF" >Get Started</a>
+          <a href="#modal1" id="download-button" class="btn-large waves-effect waves-light modal-trigger" style="background-color: #0058FF" >Get Started</a>
         </div>
         <br><br>
       </div>
@@ -50,18 +50,18 @@
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center blue-text"><i class="material-icons">flash_on</i></h2>
-            <h5 class="center">Speeds up development</h5>
+            <h5 class="center">Be more productive</h5>
 
-            <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+            <p class="light">We did most of the heavy lifting for you to provide both the user and the developer access to the data they need! Additionally, we added a facebook login to streamline the process of getting started!</p>
           </div>
         </div>
 
         <div class="col s12 m4">
           <div class="icon-block">
             <h2 class="center blue-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">User Experience Focused</h5>
+            <h5 class="center">Connect with those you need!</h5>
 
-            <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+            <p class="light">By utilizing our API, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
           </div>
         </div>
 
@@ -153,10 +153,23 @@
   </footer>
 
 
+
   <!--  Scripts-->
   <script src="jquery/dist/jquery.js" charset="utf-8"></script>
   <script src="Materialize/bin/materialize.js" charset="utf-8"></script>
   <script src="js/init.js"></script>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Sign In</h4>
+      <%- include('partials/_index_modal.ejs')%>
+  </div>
+
+  <script type="text/javascript">
+    $('.modal-trigger').leanModal();
+  </script>
+
+
 
 
   </body>
