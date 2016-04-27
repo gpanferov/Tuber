@@ -8,7 +8,7 @@ var facebook_callback_url = 'http://tuber.tech/auth/facebook/callback';
 //var fb_callback = 'http://localhost:3000/auth/facebook/callback'
 
 module.exports = {
-    'clientID'      : fb_id || facebook_client_id , // your App ID
-    'clientSecret'  : fb_secret || facebook_client_secret, // your App Secret
-    'callbackURL'   : fb_callback || facebook_callback_url
+    'clientID'      : facebook_client_id , // your App ID
+    'clientSecret'  : facebook_client_secret, // your App Secret
+    'callbackURL'   : facebook_callback_url
 }
