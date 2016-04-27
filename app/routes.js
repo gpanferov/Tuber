@@ -22,14 +22,10 @@ module.exports = function(app, passport) {
                 }
             })
         } else {
-            res.render('index.ejs'); // load the index.ejs file
+            res.render('index.ejs', {user : null}); // load the index.ejs file
         }
     });
-    app.get('/test', isLoggedIn, function(req, res) {
-        res.render('test.ejs', {
-            user: req.user
-        })
-    })
+
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
@@ -52,7 +48,7 @@ module.exports = function(app, passport) {
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback', passport.authenticate('facebook', {
         scope : ['email'],
-        successRedirect: '/test',
+        successRedirect: '/',
         failureRedirect: '/'
     }),
     function(err,req,res,next) {
