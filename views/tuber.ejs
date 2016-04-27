@@ -65,13 +65,13 @@
                     </div>
                     <div class="card-action">
                         <a href="#">
-                        <div id="rateYo&lt;%= i.toString() %&gt;"></div></a><br>
+                        <div id="rateYo<%= i.toString() %>"></div></a><br>
                         <br>
                         <a href="#">Avg Rating: <span class="math"><%= tutors[i].avgRating %></span></a> <a href=
                         "#">Phone Number: <span class="phone"><%= tutors[i].local.phone %></span></a>
                         <script type="text/javascript">
                         $(function () {
-                        $("#rateYo" + <%= i.toString() %>).rateYo({
+                        $("#rateYo<%= i.toString() %>").rateYo({
                           rating: <%= tutors[i].avgRating  %>
                         });
 
@@ -84,7 +84,7 @@
     </main>
     <script type="text/javascript">
     $('.phone').text(function(i, text) {
-    return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
     });
     $('.math').text(function(i, text){
 
