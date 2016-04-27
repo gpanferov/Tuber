@@ -71,8 +71,8 @@
                         "#">Phone Number: <span class="phone"><%= tutors[i].local.phone %></span></a>
                         <script type="text/javascript">
                         $(function () {
-                        $("#rateYo<%= i.toString() %>" ).rateYo({
-                        rating: <%= tutors[i].avgRating  %>
+                        $("#rateYo"<%= i.toString() %>).rateYo({
+                          rating: <%= tutors[i].avgRating  %>
                         });
 
                         });
