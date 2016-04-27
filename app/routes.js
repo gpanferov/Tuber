@@ -58,6 +58,7 @@ module.exports = function(app, passport) {
     function(err,req,res,next) {
         // You could put your own behavior in here, fx: you could force auth again...
         // res.redirect('/auth/facebook/');
+        res.redirect('/');
         if(err) {
             res.status(400);
             res.render('error', {message: err.message});
