@@ -47,12 +47,11 @@ module.exports = function(app, passport) {
     }));
     // route for facebook authentication and login
     app.get('/auth/facebook', passport.authenticate('facebook', {
-      session: false,
       scope : ['email']
     }));
     // handle the callback after facebook has authenticated the user
     app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-        session : false,
+        scope : ['email'],
         successRedirect: '/test',
         failureRedirect: '/'
     }),

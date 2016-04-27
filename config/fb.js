@@ -6,5 +6,6 @@ var facebook_callback_url = 'http://localhost:3000/auth/facebook/callback';
 module.exports = {
     'clientID'      : facebook_client_id , // your App ID
     'clientSecret'  : facebook_client_secret, // your App Secret
-    'callbackURL'   : facebook_callback_url
+    'callbackURL'   : facebook_callback_url,
+    'redirect_uri'  : facebook_callback_url
 }
