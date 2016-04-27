@@ -6,7 +6,7 @@ var User = require('./models/user.js');
 var Class = require('./models/class.js');
 
 var api = express.Router()
-var jwt_secret = require('../config/auth.js').jwt_secret
+var jwt_secret = require('../config/jwt.js').jwt_secret
 
 process.on('uncaughtException', function(err) {
     console.log(err);

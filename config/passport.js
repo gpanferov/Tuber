@@ -1,6 +1,12 @@
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
-var auth = require('./auth.js')
+
+
+var jwt_auth = require('./jwt.js')
+var fb = require('./fb.js')
+var twitter = require('./fb.js')
+
+
 var jwt = require('jsonwebtoken');
 var User = require('../app/models/user');
 // expose this function to our app using module.exports
@@ -49,7 +55,7 @@ module.exports = function(passport) {
                         } else {
                             user.token = jwt.sign({
                                 _id: user._id
-                            }, auth.jwt_secret);
+                            }, jwt_auth.jwt_secret);
                             user.save(function(err, user1) {
                                 if (err) {
                                     console.log(err)
@@ -87,59 +93,50 @@ module.exports = function(passport) {
             return done(null, user);
         });
     }));
-    passport.use(new FacebookStrategy({
-            // pull in our app id and secret from our auth.js file
-            passReqToCallback: true,
-            clientID: auth.facebookAuth.clientID,
-            clientSecret: auth.facebookAuth.clientSecret,
-            callbackURL: auth.facebookAuth.callbackURL,
-            profileFields: ['id', 'emails']
+
+
+
+
+    passport.use('facebook', new FacebookStrategy({
+            clientID: fb.clientID,
+            clientSecret: fb.clientSecret,
+            callbackURL: fb.callbackUrl
         },
-        // facebook will send back the token and profile
-        function(token, refreshToken, profile, done) {
-            console.log("WE IN NIGGA BITCH");
-            console.log("PROFILE: ", profile)
-            console.log("TOKEN: ", refreshToken)
+
+        // facebook will send back the tokens and profile
+        function(access_token, refresh_token, profile, done) {
             // asynchronous
             process.nextTick(function() {
+
                 // find the user in the database based on their facebook id
-
-                if (!profile){
-                  console.log("Facebook did not give us your profile");
-                  return done(profile)
-                }
-                if (profile){
-                  console.log("THE GIVEN PROFILE IS ", profile)
-                }
-
                 User.findOne({
-                    'facebook.id': profile.id
+                    'id': profile.id
                 }, function(err, user) {
+
                     // if there is an error, stop everything and return that
                     // ie an error connecting to the database
-                    if (err) {
-                        console.log("Error " + err);
+                    if (err)
                         return done(err);
-                    }
+
                     // if the user is found, then log them in
                     if (user) {
                         return done(null, user); // user found, return that user
-                    }
-
-                    else {
+                    } else {
                         // if there is no user found with that facebook id, create them
                         var newUser = new User();
+
                         // set all of the facebook information in our user model
-                        newUser.facebook.id = profile.id; // set the users facebook id
-                        newUser.facebook.token = token; // we will save the token that facebook provides to the user
-                        newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName; // look at the passport user profile to see how names are returned
-                        newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+                        newUser.fb.id = profile.id; // set the users facebook id
+                        newUser.fb.access_token = access_token; // we will save the token that facebook provides to the user
+                        newUser.fb.firstName = profile.name.givenName;
+                        newUser.fb.lastName = profile.name.familyName; // look at the passport user profile to see how names are returned
+                        newUser.fb.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
+
                         // save our user to the database
                         newUser.save(function(err) {
-                            if (err) {
-                                console.log("Error" + err)
+                            if (err)
                                 throw err;
-                            }
+
                             // if successful, return the new user
                             return done(null, newUser);
                         });
@@ -147,4 +144,5 @@ module.exports = function(passport) {
                 });
             });
         }));
+
 };
