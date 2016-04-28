@@ -14,13 +14,16 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="/" class="brand-logo white-text">Tuber</a>
       <ul class="right hide-on-med-and-down">
+        <li><a href="#modal1" class="modal-trigger white-text" >Login</a></li>
         <li><a class="white-text" href="/api">API</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
+        <br>
+        <li><a href="#modal1" class="modal-trigger" >Login</a></li>
         <li><a href="/api">API</a></li>
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="" data-activates="nav-mobile" class="button-collapse"><i class="material-icons white-text">menu</i></a>
     </div>
   </nav>
 
@@ -40,7 +43,6 @@
     </div>
     <div class="parallax"><img class="landing-img" src="images/ucm.jpg" alt="Unsplashed background img 1"></div>
   </div>
-
 
   <div class="container">
     <div class="section">
@@ -82,7 +84,7 @@
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <h5 class="header col s12 light">Getting an A+ has never been so easy!</h5>
+          <h5 class="header col s12 light"><b>Getting an A+ has never been so easy!</b></h5>
         </div>
       </div>
     </div>
@@ -108,7 +110,7 @@
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <h5 class="header col s12 light">A modern solution to an archaic problem</h5>
+          <h5 class="header col s12 light"><b>A modern solution to an archaic problem</b></h5>
         </div>
       </div>
     </div>
@@ -148,16 +150,17 @@
   </footer>
 
 
-
   <!--  Scripts-->
   <script src="jquery/dist/jquery.js" charset="utf-8"></script>
   <script src="Materialize/bin/materialize.js" charset="utf-8"></script>
   <script src="js/init.js"></script>
 
-  <div id="modal1" class="modal">
+  <div id="modal1" class="modal" style="overflow: hidden">
     <div class="modal-content">
-      <h4>Sign In</h4>
-      <%- include('partials/_index_modal.ejs')%>
+      <h5 class="center" > Sign In</h5>
+      <!-- <%- include('partials/_index_modal.ejs')%> -->
+      <%- include('partials/_login_modal.ejs')%>
+    </div>
   </div>
 
   <script type="text/javascript">
@@ -175,9 +178,16 @@
           -1px 1px 0 #000,
        1px 1px 0 #000;
      }
+
+     .fb-login-nav {
+       background: #4460D9;
+
+     }
+     .fb-login-nav:hover,.fb-login-nav:active{
+       background: #44609D;
+     }
+
   </style>
-
-
 
 
   </body>

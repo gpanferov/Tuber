@@ -26,6 +26,14 @@ module.exports = function(app, passport) {
         }
     });
 
+    app.get('/get-started', function(req, res){
+      if (isAuthenticated(req)){
+        res.redirect('/')
+      }
+      else {
+        res.render('get-started')
+      }
+    })
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
@@ -69,7 +77,7 @@ module.exports = function(app, passport) {
         });
     });
 
-    
+
 
 
     app.get('/users', isLoggedIn, function(req, res) {

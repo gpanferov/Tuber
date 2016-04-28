@@ -23,7 +23,7 @@
             <ul class="right hide-on-med-and-down">
                 <%if (user) { %>
                 <li>
-                    <a class='dropdown-button' data-activates='dropdown1' href='#'><%= user.local.email %></a>
+                    <a class='dropdown-button' data-activates='dropdown1' href='#'><%= user.local.email || user.facebook.email %></a>
                 </li><!-- Dropdown Structure -->
                 <li style="list-style: none; display: inline">
                     <ul class='dropdown-content' id='dropdown1' style="margin-top: 65px;">

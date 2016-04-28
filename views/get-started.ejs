@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Tuber</title>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="Materialize/bin/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav  role="navigation" style="background-color: #0058FF">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="/" class="brand-logo white-text">Tuber</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="white-text" href="/api">API</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <br>
+        <li><a href="/api">API</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons white-text">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="center">
+    <div class="login-page">
+      <div class="form">
+        <form class="register-form" action="/signup" method="POST">
+          <label for="">Username</label>
+          <input type="text" class="input-field" placeholder="username" name="username"/>
+          <label class="center"> Password</label>
+          <input type="password" placeholder="password" name="password"/>
+          <label >Email</label>
+          <input type="text" placeholder="you@domain.com" name="email" />
+          <button type="submit">create</button>
+          <p class=" center message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+
+        <form class="login-form" action="/login" method="POST">
+          <label  class="center" for="">Username</label>
+          <input type="text" placeholder="username" name="username"/>
+          <label class="center">Password</label>
+          <input type="password" placeholder="password" name="password"/>
+          <button type="submit">login</button>
+          <br><br>
+          <div class="center">
+            <form class="login-form" action="/auth/facebook" method="GET">
+              <a class="fb-login" href="/auth/facebook">FaceBook Login </a>
+            </form>
+          </div>
+          <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+      </div>
+    </div>
+
+
+  </div>
+
+  <footer class="page-footer" style="background-color: #0058FF">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text"></h5>
+          <ul>
+            <li><a class="white-text" href="#!"></a></li>
+
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="www.ruelas.me">ruelas.me</a></li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="brown-text text-lighten-3" href="www.ruelas.me">Juan G Ruelas Jr.</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="jquery/dist/jquery.js" charset="utf-8"></script>
+  <script src="Materialize/bin/materialize.js" charset="utf-8"></script>
+  <script src="js/init.js"></script>
+
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4 class="center" > Sign In</h4>
+      <%- include('partials/_index_modal.ejs')%>
+  </div>
+
+  <script type="text/javascript">
+    $('.modal-trigger').leanModal();
+  </script>
+
+  <style media="screen">
+    b {
+       -webkit-text-stroke: 1px black;
+       color: white;
+       text-shadow:
+           3px 3px 0 #000,
+         -1px -1px 0 #000,
+          1px -1px 0 #000,
+          -1px 1px 0 #000,
+       1px 1px 0 #000;
+     }
+  </style>
+
+
+
+
+  </body>
+</html>

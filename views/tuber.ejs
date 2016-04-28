@@ -10,7 +10,6 @@
     </script><!--This is used for mother fucking material design from google bitches=-->
     <link charset="utf-8" href="Materialize/bin/materialize.css" media="screen" rel="stylesheet" title="no title">
     <!-- The templar knights when they took jerusalem niggah-->
-
     <script charset="utf-8" src="Materialize/bin/materialize.js">
     </script><!--Google icons because fuck you=-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -70,18 +69,18 @@
                         <a href="#">Avg Rating: <span class="math"><%= tutors[i].avgRating %></span></a> <a href=
                         "#">Phone Number: <span class="phone"><%= tutors[i].local.phone %></span></a>
                         <script type="text/javascript">
-                        $(function () {
-                        $("#rateYo<%= i.toString() %>").rateYo({
-                          rating: <%= tutors[i].avgRating  %>
-                        });
-
-                        });
+                          $(function () {
+                            $("#rateYo<%= i.toString() %>").rateYo({
+                              rating: <%= tutors[i].avgRating  %>
+                            });
+                          });
                         </script>
                     </div>
                 </div>
             </div><%} %>
         </div>
     </main>
+
     <script type="text/javascript">
     $('.phone').text(function(i, text) {
       return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
@@ -89,6 +88,7 @@
     $('.math').text(function(i, text){
       return Number(text).toFixed(1)
     })
+    $('.button-collapse').sideNav();
     </script>
     <script charset="utf-8" src="rateYo/src/jquery.rateyo.js">
     </script>
