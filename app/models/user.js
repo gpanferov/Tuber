@@ -8,6 +8,7 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : { type : String, unique : true},
         username     : { type : String, unique : true},
+        token        : { type : String, unique : true },
         password     : { type : String },
         first        : { type : String },
         last         : { type : String }
@@ -22,7 +23,6 @@ var userSchema = mongoose.Schema({
     },
     phone        : { type : String },
     birthday     : { type : String },
-    token     : { type : String, unique : true },
     classes   : [ String ],
     ratings   : [ Number ],
     avgRating : Number,
@@ -30,9 +30,9 @@ var userSchema = mongoose.Schema({
     isAdmin   : { type : Boolean, default : false },
     picUrl    : String,
     gender    : String,
-    bio : { type : String },
-    created_at  : Date,
-    update_at   : Date,
+    bio : { type : String , default : "" },
+    created_at  : { type : Date, default : Date.now()},
+    updated_at   : { type : Date }
 });
 // methods ======================
 // generating a hash
