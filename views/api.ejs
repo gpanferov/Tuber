@@ -34,7 +34,10 @@
                         <li>
                             <a class="red white-text" href="/logout">Logout</a>
                         </li>
-                    </ul><%} %>
+                    </ul>
+                  <%}  else { %>
+                    <li><a href="#modal1" class="modal-trigger white-text" >Login</a></li>
+                  <% } %>
                 </li>
                 <li>
                     <a href="/api">API</a>
@@ -159,6 +162,15 @@
         <br>
         <br>
     </div>
+
+    <div id="modal1" class="modal" style="overflow: hidden">
+      <div class="modal-content">
+        <h5 class="center" > Sign In</h5>
+        <!-- <%- include('partials/_index_modal.ejs')%> -->
+        <%- include('partials/_login_modal.ejs')%>
+      </div>
+    </div>
+
     <script type="text/javascript">
     $('.parallax').parallax();
     $(".button-collapse").sideNav();

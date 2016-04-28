@@ -17,11 +17,14 @@
     <div class="nav-wrapper container">
       <a id="logo-container" href="/" class="brand-logo white-text">Tuber</a>
       <ul class="right hide-on-med-and-down">
+        <li><a href="#modal1" class="modal-trigger white-text" >Login</a></li>
         <li><a class="white-text" href="/api">API</a></li>
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
         <br>
+
+        <li><a href="#modal1" class="modal-trigger white-text" >Login</a></li>
         <li><a href="/api">API</a></li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons white-text">menu</i></a>
@@ -122,7 +125,7 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4 class="center" > Sign In</h4>
-      <%- include('partials/_index_modal.ejs')%>
+      <%- include('partials/_login_modal.ejs')%>
   </div>
 
   <script type="text/javascript">
