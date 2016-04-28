@@ -110,7 +110,7 @@ module.exports = function(passport) {
             clientID: fb.clientID,
             clientSecret: fb.clientSecret,
             callbackURL: fb.callbackURL,
-            profileFields: ['id', 'picture.type(large)', 'emails', 'name', 'gender', 'profileUrl']
+            profileFields: ['id', 'emails', 'name', 'gender', 'profileUrl']
         },
 
         // facebook will send back the tokens and profile
@@ -154,7 +154,7 @@ module.exports = function(passport) {
                         newUser.facebook.firstName = profile.name.givenName;
                         newUser.facebook.lastName = profile.name.familyName; // look at the passport user profile to see how names are returned
                         newUser.facebook.email = profile.emails[0].value; // facebook can return multiple emails so we'll take the first
-                        newUser.picUrl = profile.photos[0].value;
+                        newUser.picUrl = "http://graph.facebook.com/" + facebook.id + "/picture?width=800&height=800";
                         newUser.gender = profile.gender;
 
                         /*THIS IS FOR THE LOCAL SHIT*/
