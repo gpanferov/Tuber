@@ -110,7 +110,7 @@ module.exports = function(passport) {
             clientID: fb.clientID,
             clientSecret: fb.clientSecret,
             callbackURL: fb.callbackURL,
-            profileFields: ['id', 'photos', 'emails', 'name', 'gender', 'profileUrl']
+            profileFields: ['id', 'picture.type(large)', 'photos', 'emails', 'name', 'gender', 'profileUrl']
         },
 
         // facebook will send back the tokens and profile
@@ -158,7 +158,7 @@ module.exports = function(passport) {
                         newUser.gender = profile.gender;
 
                         /*THIS IS FOR THE LOCAL SHIT*/
-                        newUser.local.email = profile.emails[0].value;
+                        //newUser.local.email = profile.emails[0].value;
 
                         console.log( "NEW USER IS", newUser)
                         // save our user to the database
