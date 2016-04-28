@@ -10,9 +10,7 @@ var userSchema = mongoose.Schema({
         username     : { type : String, unique : true},
         password     : { type : String },
         first        : { type : String },
-        last         : { type : String },
-        phone        : { type : String },
-        birthday     : { type : String }
+        last         : { type : String }
     },
     facebook         : {
         id           : String,
@@ -21,13 +19,17 @@ var userSchema = mongoose.Schema({
         lastName     : String,
         email        : String
     },
+    phone        : { type : String },
+    birthday     : { type : String },
     token   : { type : String, unique : true },
     classes : [ String ],
     ratings  : [ Number ],
     avgRating : Number,
     isTutor : { type : Boolean, default : false },
     isAdmin : { type : Boolean, default : false },
-    bio : { type : String }
+    bio : { type : String },
+    created_at : Date,
+    update_at : Date,
 });
 // methods ======================
 // generating a hash

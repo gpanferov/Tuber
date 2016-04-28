@@ -53,11 +53,17 @@
     <main>
         <div class="container">
 
-          <% if (user.facebook ) { %>
+          <% if (user.facebook) { %>
             <div class="center">
               <b class="center">FaceBook Information</b><hr>
             </div>
+          <% } else { %>
+            <div class="center">
+              <b class="center">User Information</b><hr>
+            </div>
           <% } %>
+
+
 
           <div class="row">
             <form class="col s12">
