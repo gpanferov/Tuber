@@ -166,6 +166,7 @@ module.exports = function(passport) {
                         newUser.picUrl = profile.photos[0].value;
                         newUser.gender = profile.gender;
 
+
                         console.log( "NEW USER IS", newUser)
                         // save our user to the database
                         newUser.save(function(err, user) {
