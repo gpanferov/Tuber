@@ -17,7 +17,8 @@ var userSchema = mongoose.Schema({
         token        : String,
         firstName    : String,
         lastName     : String,
-        email        : String
+        email        : String,
+        gender       : String
     },
     phone        : { type : String },
     birthday     : { type : String },
@@ -27,6 +28,7 @@ var userSchema = mongoose.Schema({
     avgRating : Number,
     isTutor : { type : Boolean, default : false },
     isAdmin : { type : Boolean, default : false },
+    profileUrl : String,
     bio : { type : String },
     created_at : Date,
     update_at : Date,
