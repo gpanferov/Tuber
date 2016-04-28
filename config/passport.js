@@ -166,6 +166,7 @@ module.exports = function(passport) {
                         newUser.picUrl = profile.photos[0].value;
                         newUser.gender = profile.gender;
 
+                        newUser.local.email = user.facebook.email;
 
                         console.log( "NEW USER IS", newUser)
                         // save our user to the database
