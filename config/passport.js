@@ -131,29 +131,20 @@ module.exports = function(passport) {
 
                     // if there is an error, stop everything and return that
                     // ie an error connecting to the database
-                    if (err)
+                    if (err){
+                        console.log(err);
                         done(err);
+                    }
 
                     // if the user is found, then log them in
                     if (user) {
+                        console.log("WE FOUND THIS USER!", user)
                         done(null, user); // user found, return that user
                     } else {
                         // if there is no user found with that facebook id, create them
-
-                        if (!profile.id){
-
-                        }
-                        if (!access_token){
-
-                        }
-                        if (!profile.name.givenName){
-
-                        }
-                        if (!profile.name.familyName){
-
-                        }
-                        if (!profile.emails){
-
+                        if (profileIsBad(profile)){
+                          console.log("USER FB PROFILE DOES NOT PROVIDE ENOUGH DATA")
+                          done(null)
                         }
 
                         var newUser = new User();
@@ -166,6 +157,7 @@ module.exports = function(passport) {
                         newUser.picUrl = profile.photos[0].value;
                         newUser.gender = profile.gender;
 
+                        /*THIS IS FOR THE LOCAL SHIT*/
                         newUser.local.email = profile.emails[0].value;
 
                         console.log( "NEW USER IS", newUser)
@@ -184,3 +176,8 @@ module.exports = function(passport) {
         }));
 
 };
+
+function profileIsBad(profile){
+  // TODO: make this actuall check if all the fields are good
+  return false
+}
