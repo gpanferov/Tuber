@@ -132,13 +132,13 @@ function isAuthenticated(req) {
 }
 
 function isAdmin(req, res, next){
-  if (req.isAdmin){
+
+  console.log(req.user)
+  if (req.user.isAdmin){
     return next()
   }
   res.redirect('/');
 }
-
-
 
 function chunkify(a, n, balanced) {
 
@@ -174,8 +174,6 @@ function chunkify(a, n, balanced) {
             out.push(a.slice(i, i += size));
         }
         out.push(a.slice(size * n));
-
     }
-
     return out;
 }
