@@ -1,24 +1,13 @@
 ![signature](http://tuber.tech/images/tuber.png)
 
 
+#**_Uber but for Tutors_**
 
-
-
-
-
-**_Uber but for Tutors_**
-
-
-
-
-
-Tuber is an "Uber for tutoring" app for those who are looking to tutor and be tutored. 
+Tuber is a "tutor on demand" application for those who are looking to tutor and be tutored. 
 
 ###REST API
-We created our own REST API for communication for the server between all 3 platforms we are running: iOS, Android, and Web.
-All 3 are able to do the same operation because of the REST API being able to communicate equally to all of them.
-The REST API sends out a JSON file, which is typecasted into a string, allowing us to get information that is on the server onto whichever browser requests it.
-Our backend developer created the REST API using node.js, express.js and mongodb. This allowed us to rapidly create and consume our own API.
+We created our own REST API for communication between the server and all 3 platforms we are running: iOS, Android, and Web.
+The Rest API was created using node.js, express.js and mongodb. This allowed us to rapidly create and consume our own API.
 
 [Documentation can be found here](http://tuber.tech/api).
 
@@ -56,3 +45,33 @@ We created and consumed our own api. For the web development we used
 - bcrypt for hashing passwords
 
 On the web app you are only able to sign in, sign up, view profile, edit profile, view tutors and log out. 
+
+###TODO:
+The following features will be rolling out in subsequent months
+- Geo-Location for a Lyft & Uber like UI
+- Socket.io to enable chat between users
+- Payments between users
+
+#Licensing
+The following source code (i.e. this entire repository) is under a dual license.
+
+####Commercial
+
+If you plan on using this as a "template" for your own gain (*yes, your refers to companies, corporations, etc*), you must contact me
+(jruel006@ucr.edu) in order to purchase a license.
+
+Copyright (C) Juan G. Ruelas Jr, Maxime Moison, Gene Panferov, Mohit Veligenti - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Juan G. Ruelas Jr. <jruel006@ucr.edu>, April 2016
+ *
+
+####Open Source
+If you plan on genuinely helping others connect and don't plan on making any profit (this means you __cannot__ make profit at all), then
+you can freely copy and modify, however you must share any and all changes. Any questions can be directed at jruel006@ucr.edu
+
+#REMEMBER
+
+__Licenses are not contracts: the work's user is obliged to remain within the bounds of the license not because he/she voluntarily
+promised, but because she doesn't have any right to act at all except as the license permits.__ Meaning, you cannot make a profit from
+this project unless the core developers are involved and recieve proper attribution/compensation.
