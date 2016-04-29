@@ -29,6 +29,10 @@ module.exports = function(app, passport) {
         }
     });
 
+    app.get('/map', function(req, res){
+      res.render('map')
+    });
+
     app.get('/get-started', function(req, res){
       if (isAuthenticated(req)){
         res.redirect('/')
@@ -78,9 +82,18 @@ module.exports = function(app, passport) {
         });
     });
 
+    app.get('/create-class', isLoggedIn, isAdmin, function(req, res){
+      res.render('create-class.ejs');
+    })
+
     app.get('/chat/:id', function(req, res){
       // TODO create a chatroom
     })
+
+    app.get('/chat', isLoggedIn, function(req, res){
+      // TODO view all chats
+    })
+
     app.get('/users', isLoggedIn, function(req, res) {
         // TODO return users json
     });
@@ -116,6 +129,13 @@ function isAuthenticated(req) {
         return true
     }
     return false
+}
+
+function isAdmin(req, res, next){
+  if (req.isAdmin){
+    return next()
+  }
+  res.redirect('/');
 }
 
 

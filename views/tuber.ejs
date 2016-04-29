@@ -77,13 +77,17 @@
       <% for (var index = 0; index < tutors.length; index++){ %>
         <div class="container" id="index<%= index %>">
                   <div class="container">
+                    <div class="container">
+
+
                   <%for (var i = 0; i < tutors[index].length ; i++) { %>
                     <div class="row">
                       <div class="col s12 center">
                             <div class="card large">
                                 <div class="card-image waves-effect waves-block waves-light">
-                                    <img class="activator" src="<%= tutors[index][i].picUrl%>">
-                                </div>
+                                  <img class="activator" src="<%= tutors[index][i].picUrl%>" style="max-height: 80%;">
+                                  </div>
+
                                 <div class="card-content">
                                     <span class="card-title activator grey-text text-darken-4">
                                       <% if (tutors[index][i].facebook) { %>
@@ -129,6 +133,7 @@
                                     <p>Here is some more information about this product that is only revealed once clicked on.</p>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div> <%} %>
                 </div>
