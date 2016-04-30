@@ -79,6 +79,9 @@
                   <div class="container">
                     <div class="container">
 
+                      <div class="container">
+
+
 
                   <%for (var i = 0; i < tutors[index].length ; i++) { %>
                     <div class="row">
@@ -118,7 +121,6 @@
                                       });
                                     </script>
 
-
                                   <%for(var j = 0; j < tutors[index][i].classes.length; j++){%>
                                       <a href="/classes/<%= tutors[index][i].classes[j] %>">
                                           <div class="chip">
@@ -130,10 +132,13 @@
 
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                                    <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                                    <p><%= tutors[index][i].bio </p>
                                 </div>
+
                             </div>
                         </div>
+                        </div>
+
                         </div>
                     </div> <%} %>
                 </div>
