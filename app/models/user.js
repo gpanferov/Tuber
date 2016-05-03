@@ -28,6 +28,8 @@ var userSchema = mongoose.Schema({
     avgRating : Number,
     isTutor   : { type : Boolean, default : false },
     isAdmin   : { type : Boolean, default : false },
+    isOnline  : { type : Boolean, default : false },
+    rate      : { type : String},
     picUrl    : String,
     gender    : String,
     bio : { type : String , default : "" },

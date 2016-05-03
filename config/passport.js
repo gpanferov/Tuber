@@ -139,7 +139,16 @@ module.exports = function(passport) {
                     // if the user is found, then log them in
                     if (user) {
                         console.log("WE FOUND THIS USER!", user)
-                        done(null, user); // user found, return that user
+                        user.isOnline = true;
+                        user.save(function(err, saveduser){
+                          if (err){
+                            console.log(err)
+                          }
+                          else {
+                            done(null, saveduser); // user found, return that user
+                          }
+                        })
+
                     } else {
                         // if there is no user found with that facebook id, create them
                         if (profileIsBad(profile)){
