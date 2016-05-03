@@ -14,7 +14,8 @@
     </script><!--Google icons because fuck you=-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="rateYo/src/jquery.rateyo.css" rel="stylesheet">
-      <% include('partials/_google.ejs') %>
+
+    <% include('partials/_google.ejs') %>
 </head>
 <body>
     <header>
@@ -52,24 +53,26 @@
     <br>
     <main>
 
+
+      <% if (tutors) { %>
+
       <!--THIS IS WHAT GENERATES THE PAGNATION -->
       <div class="center">
         <ul class="pagination">
           <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
           <% for (var page = 0; page < tutors.length; page++){ %>
-            <li class="waves-effect" style="background-color: #0058FF" id="page<%=page%>"><a href=""> <%= Number(page) + 1 %></a></li>
-            <script type="text/javascript">
-              $('#page<%= page %>').click(function(event){
-                event.preventDefault();
-                $('#display').children().hide();
-                $('#display').show();
-                $('#index<%= page %>').show();
-              })
-            </script>
+              <li class="waves-effect" style="background-color: #0058FF" id="page<%= page %>"><a href=""> <%= Number(page) + 1 %></a></li>
+              <script type="text/javascript">
+                $('#page<%= page %>').click(function(event){
+                  event.preventDefault();
+                  $('#display').children().hide();
+                  $('#display').show();
+                  $('#index<%= page %>').show();
+                })
+              </script>
           <% } %>
           <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
         </ul>
-
       </div>
 
 
@@ -78,10 +81,7 @@
         <div class="container" id="index<%= index %>">
                   <div class="container">
                     <div class="container">
-
                       <div class="container">
-
-
 
                   <%for (var i = 0; i < tutors[index].length ; i++) { %>
                     <div class="row">
@@ -110,7 +110,7 @@
                                     <!--<a href="#">Avg Rating: <span class="math"><%= tutors[index][i].avgRating %></span></a>-->
                                     <br>
 
-                                    <a href="#">Phone Number: <span class="phone"><%= tutors[index][i].phone%></span></a>
+                                    <a href="#">Phone Number: <span class="phone"><%= tutors[index][i].phone %></span></a>
                                     <br>
 
                                     <script type="text/javascript">
@@ -121,7 +121,7 @@
                                       });
                                     </script>
 
-                                  <%for(var j = 0; j < tutors[index][i].classes.length; j++){%>
+                                  <% for(var j = 0; j < tutors[index][i].classes.length; j++) { %>
                                       <a href="/classes/<%= tutors[index][i].classes[j] %>">
                                           <div class="chip">
                                             <%= tutors[index][i].classes[j] %>
@@ -132,7 +132,7 @@
 
                                 <div class="card-reveal">
                                     <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                                    <p><%= tutors[index][i].bio </p>
+                                    <p><%= tutors[index][i].bio %></p>
                                 </div>
 
                             </div>
@@ -140,17 +140,16 @@
                         </div>
 
                         </div>
-                    </div> <%} %>
+                        <%} %>
+                    </div>
                 </div>
         </div>
       <%}%>
     </div>
 
-
-
-
-<!--
-      -->
+    <% } else { %>
+      <h1>There are currently no tutors</h1>
+    <% } %>
     </main>
 
     <script type="text/javascript">
@@ -158,7 +157,7 @@
         return text.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
       });
       $('.math').text(function(i, text){
-        return Number(text).toFixed(1)
+        return Number(text).toFixed(1);
       })
       $('.button-collapse').sideNav();
 
